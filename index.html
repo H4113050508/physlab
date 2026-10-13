@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#102b46">
+<title>PhysLab — Virtual Physics Laboratory</title>
+<style>
+:root{--navy:#102b46;--blue:#176b87;--cyan:#65d6ce;--paper:#f3f7fb;--ink:#17283b;--muted:#607286;--line:#dce5ed;--white:#fff;--gold:#f5c66a}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input{font:inherit}button{cursor:pointer}.top{background:linear-gradient(120deg,#102b46,#176b87);color:white;padding:24px max(20px,calc((100% - 1180px)/2)) 30px}.brand{display:flex;gap:13px;align-items:center}.logo{width:48px;height:48px;border-radius:15px;background:#ffffff1c;display:grid;place-items:center;font-size:26px;border:1px solid #ffffff42}.brand h1{font-size:24px;margin:0;letter-spacing:-.5px}.brand p{margin:3px 0 0;color:#d5e9f3;font-size:13px}.hero{max-width:1180px;margin:26px auto 0;display:flex;justify-content:space-between;gap:20px;align-items:end}.hero h2{font-size:clamp(25px,4vw,39px);line-height:1.1;max-width:650px;margin:0 0 10px}.hero p{color:#d5e9f3;margin:0;max-width:630px;line-height:1.6}.pill{display:inline-flex;padding:8px 12px;border:1px solid #ffffff50;border-radius:999px;font-size:12px;white-space:nowrap}.wrap{max-width:1180px;margin:24px auto;padding:0 18px 45px}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:18px}.tab{border:1px solid var(--line);background:white;color:var(--muted);padding:11px 16px;border-radius:12px;font-weight:700}.tab.active{background:var(--navy);color:white;border-color:var(--navy)}.layout{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(280px,.8fr);gap:18px}.card{background:white;border:1px solid var(--line);border-radius:18px;overflow:hidden;box-shadow:0 6px 22px #19334b08}.cardhead{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}.cardhead h3{margin:0;font-size:17px}.sub{color:var(--muted);font-size:12px;margin-top:5px}.cardbody{padding:18px 20px}.canvasbox{background:#f8fbfd;border:1px solid var(--line);border-radius:14px;overflow:hidden}.canvasbox canvas{width:100%;height:330px;display:block}.controls{display:grid;grid-template-columns:1fr 1fr;gap:16px}.control{padding:12px;background:#f7fafc;border-radius:12px}.control label{font-size:13px;font-weight:700;display:flex;justify-content:space-between;gap:8px}.control input[type=range]{width:100%;margin:15px 0 5px;accent-color:var(--blue)}.hint{font-size:11px;color:var(--muted)}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:14px}.metric{padding:13px;border-radius:12px;background:#eef7f8}.metric span{display:block;font-size:11px;color:var(--muted);margin-bottom:6px}.metric strong{font-size:19px;letter-spacing:-.4px}.formula{padding:14px;border-radius:12px;background:#102b46;color:#fff;margin-top:14px}.formula small{display:block;color:#bcd8e6;margin-bottom:6px}.formula strong{font-size:17px;font-weight:600}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}.btn{border:0;background:var(--blue);color:white;padding:10px 14px;border-radius:10px;font-weight:700}.btn.secondary{background:#e8eff5;color:var(--navy)}.btn:focus-visible,.tab:focus-visible{outline:3px solid var(--gold);outline-offset:2px}.note{font-size:12px;color:var(--muted);line-height:1.6}.tablewrap{overflow-x:auto;margin-top:15px}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);white-space:nowrap}th{background:#f5f8fb;color:#526477}.sectiontitle{font-size:18px;margin:0 0 6px}.hidden{display:none!important}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:18px}.step{border:1px solid var(--line);background:white;border-radius:14px;padding:15px}.step b{display:block;margin:7px 0}.step span{font-size:12px;color:var(--muted);line-height:1.5}.footer{text-align:center;color:var(--muted);font-size:12px;padding:25px 10px 0}.tag{font-size:11px;background:#e8f6f4;color:#176b68;padding:6px 9px;border-radius:999px;font-weight:700}
+@media(max-width:820px){.hero{display:block}.pill{margin-top:16px}.layout{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.canvasbox canvas{height:280px}.controls{gap:10px}.cardhead,.cardbody{padding:15px}}
+@media(max-width:420px){.controls{grid-template-columns:1fr}.metrics{grid-template-columns:1fr 1fr}.brand h1{font-size:21px}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><div class="logo">⚛</div><div><h1>PhysLab</h1><p>Virtual Physics Laboratory</p></div></div>
+  <div class="hero">
+    <div><h2>Eksperimen fisika, langsung dari layar kamu.</h2><p>Ubah variabel, amati gerak, dan bandingkan hasilnya dengan teori. Laboratorium virtual sederhana untuk pembelajaran fisika di sekolah.</p></div>
+    <div class="pill">● PROTOTIPE PEMBELAJARAN</div>
+  </div>
+</header>
+<main class="wrap">
+  <nav class="tabs" aria-label="Pilih modul">
+    <button class="tab active" id="tabProjectile" type="button">↗ Gerak Parabola</button>
+    <button class="tab" id="tabPendulum" type="button">↻ Bandul Sederhana</button>
+  </nav>
+  <section id="projectilePanel">
+    <div class="layout">
+      <article class="card">
+        <div class="cardhead"><div><h3>Lintasan gerak parabola</h3><div class="sub">Model ideal • hambatan udara diabaikan</div></div><span class="tag">MODUL 01</span></div>
+        <div class="cardbody">
+          <div class="canvasbox"><canvas id="projectileCanvas" aria-label="Animasi lintasan gerak parabola"></canvas></div>
+          <div class="btnrow"><button class="btn" id="launchBtn" type="button">▶ Luncurkan</button><button class="btn secondary" id="resetProjectile" type="button">↺ Reset</button></div>
+          <div class="tablewrap"><table><thead><tr><th>Waktu (s)</th><th>x (m)</th><th>y (m)</th><th>vy (m/s)</th></tr></thead><tbody id="projectileTable"></tbody></table></div>
+          <p class="note">Tabel menampilkan contoh titik pengamatan sepanjang lintasan. Perhitungan menggunakan percepatan gravitasi konstan dan titik awal y = 0 m.</p>
+        </div>
+      </article>
+      <aside class="card">
+        <div class="cardhead"><div><h3>Pengaturan percobaan</h3><div class="sub">Ubah parameter lalu amati hasilnya</div></div></div>
+        <div class="cardbody">
+          <div class="controls">
+            <div class="control"><label for="speed">Kecepatan awal <b id="speedVal">20 m/s</b></label><input id="speed" type="range" min="5" max="35" value="20" step="1"><div class="hint">Rentang 5–35 m/s</div></div>
+            <div class="control"><label for="angle">Sudut peluncuran <b id="angleVal">45°</b></label><input id="angle" type="range" min="10" max="80" value="45" step="1"><div class="hint">Rentang 10°–80°</div></div>
+            <div class="control"><label for="gravity">Gravitasi <b id="gravityVal">9,8 m/s²</b></label><input id="gravity" type="range" min="1" max="15" value="9.8" step="0.1"><div class="hint">Atur percepatan gravitasi</div></div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span>Waktu total</span><strong id="flightMetric">—</strong></div>
+            <div class="metric"><span>Tinggi maksimum</span><strong id="heightMetric">—</strong></div>
+            <div class="metric"><span>Jarak horizontal</span><strong id="rangeMetric">—</strong></div>
+          </div>
+          <div class="formula"><small>Persamaan utama</small><strong>x = v₀ cos θ · t</strong><br><strong>y = v₀ sin θ · t − ½gt²</strong></div>
+          <p class="note">Eksperimen: ubah sudut dan pertahankan kecepatan awal. Pada model ideal dengan ketinggian awal dan akhir sama, jarak terjauh terjadi di sekitar sudut 45°.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <section id="pendulumPanel" class="hidden">
+    <div class="layout">
+      <article class="card">
+        <div class="cardhead"><div><h3>Ayunan bandul sederhana</h3><div class="sub">Pendekatan sudut kecil untuk periode teoritis</div></div><span class="tag">MODUL 02</span></div>
+        <div class="cardbody">
+          <div class="canvasbox"><canvas id="pendulumCanvas" aria-label="Animasi bandul sederhana"></canvas></div>
+          <div class="btnrow"><button class="btn" id="swingBtn" type="button">▶ Mulai ayunan</button><button class="btn secondary" id="resetPendulum" type="button">↺ Reset</button></div>
+          <div class="tablewrap"><table><thead><tr><th>Pengamatan</th><th>Nilai</th><th>Catatan</th></tr></thead><tbody id="pendulumTable"></tbody></table></div>
+          <p class="note">Model visual menggunakan sudut simpangan untuk menggambarkan gerak. Periode teori memakai pendekatan sudut kecil, sehingga hasilnya kurang akurat untuk sudut besar.</p>
+        </div>
+      </article>
+      <aside class="card">
+        <div class="cardhead"><div><h3>Pengaturan percobaan</h3><div class="sub">Ubah panjang tali dan sudut awal</div></div></div>
+        <div class="cardbody">
+          <div class="controls">
+            <div class="control"><label for="length">Panjang tali <b id="lengthVal">1,0 m</b></label><input id="length" type="range" min="0.3" max="2.5" value="1" step="0.1"><div class="hint">Rentang 0,3–2,5 m</div></div>
+            <div class="control"><label for="startAngle">Sudut awal <b id="startAngleVal">25°</b></label><input id="startAngle" type="range" min="5" max="60" value="25" step="1"><div class="hint">Diukur dari vertikal</div></div>
+            <div class="control"><label for="pendGravity">Gravitasi <b id="pendGravityVal">9,8 m/s²</b></label><input id="pendGravity" type="range" min="1" max="15" value="9.8" step="0.1"><div class="hint">Percepatan gravitasi</div></div>
+          </div>
+          <div class="metrics">
+            <div class="metric"><span>Periode teori</span><strong id="periodMetric">—</strong></div>
+            <div class="metric"><span>Frekuensi</span><strong id="frequencyMetric">—</strong></div>
+            <div class="metric"><span>Energi relatif</span><strong id="energyMetric">—</strong></div>
+          </div>
+          <div class="formula"><small>Periode bandul (sudut kecil)</small><strong>T ≈ 2π √(L/g)</strong><br><strong>f = 1/T</strong></div>
+          <p class="note">Eksperimen: gandakan panjang tali. Periode akan bertambah sebesar faktor √2 jika gravitasi tetap. Massa bandul tidak memengaruhi periode pada model ideal.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <div class="steps">
+    <div class="step"><span>LANGKAH 01</span><b>Pilih modul</b><span>Pilih gerak parabola atau bandul sederhana sesuai topik pembelajaran.</span></div>
+    <div class="step"><span>LANGKAH 02</span><b>Ubah variabel</b><span>Geser kontrol untuk mengubah nilai parameter dan amati animasinya.</span></div>
+    <div class="step"><span>LANGKAH 03</span><b>Tarik kesimpulan</b><span>Bandingkan hasil simulasi dengan persamaan fisika dan catat hasil pengamatan.</span></div>
+  </div>
+  <div class="footer">PhysLab • Prototipe Virtual Physics Laboratory untuk pembelajaran fisika<br>Simulasi edukasi, bukan pengganti penuh praktikum laboratorium nyata.</div>
+</main>
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const fmt = (n,d=2) => Number(n).toLocaleString('id-ID',{minimumFractionDigits:d,maximumFractionDigits:d});
+  const g0 = 9.8;
+  let active = 'projectile';
+  let pAnim = null, pendAnim = null, pStart = null, pendStart = null, pendRunning = false, projectileRunning = false;
+  const pCanvas=$('projectileCanvas'), pCtx=pCanvas.getContext('2d');
+  const bCanvas=$('pendulumCanvas'), bCtx=bCanvas.getContext('2d');
+
+  function sizeCanvas(canvas,ctx){
+    const r=canvas.getBoundingClientRect(), dpr=Math.min(window.devicePixelRatio||1,2);
+    canvas.width=Math.max(1,Math.round(r.width*dpr));canvas.height=Math.max(1,Math.round(r.height*dpr));
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+    return {w:r.width,h:r.height};
+  }
+  function pParams(){return {v:+$('speed').value,deg:+$('angle').value,g:+$('gravity').value};}
+  function pValues(){const {v,deg,g}=pParams(),a=deg*Math.PI/180,vx=v*Math.cos(a),vy=v*Math.sin(a),t=2*vy/g;return {v,deg,g,a,vx,vy,t,h:vy*vy/(2*g),range:vx*t};}
+  function drawProjectile(time=null){
+    const {w,h}=sizeCanvas(pCanvas,pCtx),ctx=pCtx,{v,deg,g,a,vx,vy,t,h:hm,range}=pValues();
+    ctx.clearRect(0,0,w,h);
+    const pad={l:40,r:18,t:22,b:32}, pw=w-pad.l-pad.r,ph=h-pad.t-pad.b;
+    const maxX=Math.max(range*1.12,5),maxY=Math.max(hm*1.25,3);
+    const X=x=>pad.l+x/maxX*pw,Y=y=>h-pad.b-y/maxY*ph;
+    ctx.strokeStyle='#e2eaf0';ctx.lineWidth=1;
+    for(let i=0;i<=4;i++){let x=pad.l+pw*i/4;ctx.beginPath();ctx.moveTo(x,pad.t);ctx.lineTo(x,h-pad.b);ctx.stroke();ctx.fillStyle='#6a7d8f';ctx.font='10px system-ui';ctx.fillText(fmt(maxX*i/4,0),x-6,h-12);}
+    for(let i=0;i<=3;i++){let y=maxY*i/3, yy=Y(y);ctx.beginPath();ctx.moveTo(pad.l,yy);ctx.lineTo(w-pad.r,yy);ctx.stroke();ctx.fillStyle='#6a7d8f';ctx.fillText(fmt(y,1),4,yy+3);}
+    ctx.strokeStyle='#8fa4b5';ctx.beginPath();ctx.moveTo(pad.l,h-pad.b);ctx.lineTo(w-pad.r,h-pad.b);ctx.stroke();
+    ctx.strokeStyle='#176b87';ctx.lineWidth=3;ctx.beginPath();
+    for(let i=0;i<=100;i++){let tt=t*i/100,x=vx*tt,y=Math.max(0,vy*tt-.5*g*tt*tt);if(i===0)ctx.moveTo(X(x),Y(y));else ctx.lineTo(X(x),Y(y));}ctx.stroke();
+    ctx.fillStyle='#176b87';ctx.beginPath();ctx.arc(X(range/2),Y(hm),4,0,Math.PI*2);ctx.fill();
+    let tt=time===null?0:Math.min(t,time),xx=vx*tt,yy=Math.max(0,vy*tt-.5*g*tt*tt);
+    ctx.fillStyle='#f08b45';ctx.beginPath();ctx.arc(X(xx),Y(yy),7,0,Math.PI*2);ctx.fill();
+    ctx.fillStyle='#314b61';ctx.font='11px system-ui';ctx.fillText('y (m)',8,14);ctx.fillText('x (m)',w-43,h-7);
+  }
+  function updateProjectile(){
+    const q=pValues();
+    $('speedVal').textContent=fmt(q.v,0)+' m/s';$('angleVal').textContent=fmt(q.deg,0)+'°';$('gravityVal').textContent=fmt(q.g,1)+' m/s²';
+    $('flightMetric').textContent=fmt(q.t)+' s';$('heightMetric').textContent=fmt(q.h)+' m';$('rangeMetric').textContent=fmt(q.range)+' m';
+    const rows=[0,.25,.5,.75,1].map(fr=>{const tt=q.t*fr;return `<tr><td>${fmt(tt)}</td><td>${fmt(q.vx*tt)}</td><td>${fmt(Math.max(0,q.vy*tt-.5*q.g*tt*tt))}</td><td>${fmt(q.vy-q.g*tt)}</td></tr>`}).join('');
+    $('projectileTable').innerHTML=rows;
+    if(!projectileRunning)drawProjectile();
+  }
+  function launchProjectile(){
+    cancelAnimationFrame(pAnim);projectileRunning=true;pStart=null;
+    const duration=pValues().t*850;
+    function frame(ts){if(!pStart)pStart=ts;const elapsed=ts-pStart,simT=elapsed/1000;
+      drawProjectile(simT);
+      if(elapsed<duration){pAnim=requestAnimationFrame(frame)}else{projectileRunning=false;drawProjectile(pValues().t);$('launchBtn').textContent='▶ Luncurkan'}}
+    $('launchBtn').textContent='■ Sedang berjalan';pAnim=requestAnimationFrame(frame);
+  }
+
+  function pendParams(){return {L:+$('length').value,deg:+$('startAngle').value,g:+$('pendGravity').value};}
+  function pendValues(){const {L,deg,g}=pendParams(),T=2*Math.PI*Math.sqrt(L/g);return {L,deg,g,T,f:1/T,h:L*(1-Math.cos(deg*Math.PI/180))};}
+  function drawPendulum(time=0){
+    const {w,h}=sizeCanvas(bCanvas,bCtx),ctx=bCtx,{L,deg,g,T}=pendValues();
+    ctx.clearRect(0,0,w,h);
+    const pivotX=w/2,pivotY=45,scale=Math.min((h-95)/2.5,w*.36),r=L*scale;
+    ctx.strokeStyle='#dce5ed';ctx.lineWidth=1;
+    for(let i=1;i<=3;i++){ctx.beginPath();ctx.arc(pivotX,pivotY,r*i/3,0,Math.PI*2);ctx.stroke();}
+    ctx.fillStyle='#102b46';ctx.beginPath();ctx.arc(pivotX,pivotY,6,0,Math.PI*2);ctx.fill();
+    const maxA=deg*Math.PI/180,omega=2*Math.PI/T;
+    const angle=pendRunning?maxA*Math.cos(omega*time):maxA;
+    const bx=pivotX+r*Math.sin(angle),by=pivotY+r*Math.cos(angle);
+    ctx.setLineDash([5,5]);ctx.strokeStyle='#a8bac8';ctx.beginPath();ctx.moveTo(pivotX,pivotY);ctx.lineTo(pivotX,pivotY+r);ctx.stroke();ctx.setLineDash([]);
+    ctx.strokeStyle='#176b87';ctx.lineWidth=3;ctx.beginPath();ctx.moveTo(pivotX,pivotY);ctx.lineTo(bx,by);ctx.stroke();
+    ctx.fillStyle='#65d6ce';ctx.strokeStyle='#176b87';ctx.lineWidth=2;ctx.beginPath();ctx.arc(bx,by,14,0,Math.PI*2);ctx.fill();ctx.stroke();
+    ctx.fillStyle='#314b61';ctx.font='12px system-ui';ctx.fillText('L = '+fmt(L,1)+' m',pivotX+12,pivotY+r*.52);
+    ctx.fillText('θ₀ = '+fmt(deg,0)+'°',20,h-18);
+    ctx.fillText('T = '+fmt(T)+' s',w-92,h-18);
+  }
+  function updatePendulum(){
+    const q=pendValues();
+    $('lengthVal').textContent=fmt(q.L,1)+' m';$('startAngleVal').textContent=fmt(q.deg,0)+'°';$('pendGravityVal').textContent=fmt(q.g,1)+' m/s²';
+    $('periodMetric').textContent=fmt(q.T)+' s';$('frequencyMetric').textContent=fmt(q.f)+' Hz';$('energyMetric').textContent=fmt(q.h)+' m';
+    $('pendulumTable').innerHTML=`<tr><td>Panjang tali</td><td>${fmt(q.L,1)} m</td><td>Variabel bebas</td></tr><tr><td>Periode teori</td><td>${fmt(q.T)} s</td><td>Waktu satu ayunan</td></tr><tr><td>Frekuensi</td><td>${fmt(q.f)} Hz</td><td>1 / periode</td></tr><tr><td>Ketinggian relatif</td><td>${fmt(q.h)} m</td><td>L(1 − cos θ₀)</td></tr>`;
+    if(!pendRunning)drawPendulum();
+  }
+  function swingPendulum(){
+    pendRunning=!pendRunning;
+    if(pendRunning){pendStart=null;$('swingBtn').textContent='Ⅱ Jeda ayunan';function frame(ts){if(!pendRunning)return;if(!pendStart)pendStart=ts;drawPendulum((ts-pendStart)/1000);pendAnim=requestAnimationFrame(frame)}pendAnim=requestAnimationFrame(frame)}
+    else{$('swingBtn').textContent='▶ Mulai ayunan';cancelAnimationFrame(pendAnim);drawPendulum();}
+  }
+  function switchTab(which){
+    active=which;
+    $('projectilePanel').classList.toggle('hidden',which!=='projectile');$('pendulumPanel').classList.toggle('hidden',which!=='pendulum');
+    $('tabProjectile').classList.toggle('active',which==='projectile');$('tabPendulum').classList.toggle('active',which==='pendulum');
+    if(which==='projectile')updateProjectile();else updatePendulum();
+  }
+  ['speed','angle','gravity'].forEach(id=>$(id).addEventListener('input',updateProjectile));
+  ['length','startAngle','pendGravity'].forEach(id=>$(id).addEventListener('input',updatePendulum));
+  $('tabProjectile').addEventListener('click',()=>switchTab('projectile'));
+  $('tabPendulum').addEventListener('click',()=>switchTab('pendulum'));
+  $('launchBtn').addEventListener('click',launchProjectile);
+  $('resetProjectile').addEventListener('click',()=>{cancelAnimationFrame(pAnim);projectileRunning=false;$('speed').value=20;$('angle').value=45;$('gravity').value=9.8;$('launchBtn').textContent='▶ Luncurkan';updateProjectile()});
+  $('swingBtn').addEventListener('click',swingPendulum);
+  $('resetPendulum').addEventListener('click',()=>{cancelAnimationFrame(pendAnim);pendRunning=false;$('swingBtn').textContent='▶ Mulai ayunan';$('length').value=1;$('startAngle').value=25;$('pendGravity').value=9.8;updatePendulum()});
+  window.addEventListener('resize',()=>{if(active==='projectile')drawProjectile();else drawPendulum()});
+  updateProjectile();updatePendulum();
+})();
+</script>
+</body>
+</html>
