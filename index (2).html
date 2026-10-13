@@ -29,7 +29,7 @@ main{max-width:1200px;margin:auto;padding:0 18px 40px}.stats{display:grid;grid-t
 </header>
 <main>
 <div class="stats">
-  <div class="stat"><b id="moduleCount">19</b><small>Modul simulasi</small></div>
+  <div class="stat"><b id="moduleCount">2</b><small>Modul simulasi</small></div>
   <div class="stat"><b>2 jenjang</b><small>Fisika Dasar I & SMA</small></div>
   <div class="stat"><b>100% web</b><small>Tanpa instalasi</small></div>
 </div>
@@ -64,65 +64,70 @@ const modules = [
   {id:'atwood',g:'dasar',name:'Percobaan Pesawat Atwood',desc:'Amati gerak dua massa pada katrol.',vars:[['Massa m₁',0.15,.05,.5,.01,'kg'],['Massa m₂',0.25,.05,.5,.01,'kg'],['Gravitasi',9.8,1,10,.1,'m/s²']],formula:'a = (m₂ − m₁)g / (m₁ + m₂)',concept:'Perbedaan massa menghasilkan percepatan.',metrics:(v)=>{let a=(v[1]-v[0])*v[2]/(v[0]+v[1]);return [['Percepatan',a.toFixed(2)+' m/s²'],['Gaya netto',Math.abs((v[1]-v[0])*v[2]).toFixed(2)+' N'],['Massa total',(v[0]+v[1]).toFixed(2)+' kg']]},kind:'atwood'},
   {id:'parabola',g:'sma',name:'Gerak Parabola',desc:'Atur kecepatan awal dan sudut.',vars:[['Kecepatan awal',20,5,40,1,'m/s'],['Sudut elevasi',45,10,80,1,'°'],['Gravitasi',9.8,1,10,.1,'m/s²']],formula:'R = v₀² sin(2θ)/g',concept:'Komponen gerak proyektil.',metrics:(v)=>{let a=v[1]Math.PI/180;return [['Jangkauan',(v[0]2*Math.sin(2*a)/v[2]).toFixed(2)+' m'],['Tinggi maks',(v[0]2*Math.sin(a)*2/(2*v[2])).toFixed(2)+' m'],['Waktu total',(2*v[0]*Math.sin(a)/v[2]).toFixed(2)+' s']]},kind:'projectile'}
 ];
-let active=modules[0], currentGroup='all', animating=false, animFrame=0, records=[];
-const $=id=>document.getElementById(id), canvas=$('simCanvas'), ctx=canvas.getContext('2d');
-function fmt(x){return Number(x).toLocaleString('id-ID',{maximumFractionDigits:3})}
-function getVals(){return active.vars.map((_,i)=>Number($('v'+i).value))}
+let active = modules[0], currentGroup = 'all', animating = false, animFrame = 0, records = [];
+function getEl(id) { return document.getElementById(id); }
+const canvas = getEl('simCanvas'), ctx = canvas.getContext('2d');
+function fmt(x){ return Number(x).toLocaleString('id-ID',{maximumFractionDigits:3}); }
+function getVals(){ return active.vars.map((_,i)=>Number(getEl('v'+i).value)); }
 function renderModules(){
-  $('moduleList.innerHTML='''+''';
+  const list = getEl('moduleList');
+  list.innerHTML = '';
   modules.forEach((m)=>{
-    let b=document.createElement('button');
-    b.className='module-btn'+(m.id===active.id?' active':'');
-    b.innerHTML=<span class="num">01</span><span><strong>${m.name}</strong><small>${m.g}</small></span>;
-    b.onclick=()=>selectModule(m);
-    $('moduleList').appendChild(b);
+    let b = document.createElement('button');
+    b.className = 'module-btn' + (m.id === active.id ? ' active' : '');
+    b.innerHTML = <span class="num">01</span><span><strong>${m.name}</strong><small>${m.g}</small></span>;
+    b.onclick = () => selectModule(m);
+    list.appendChild(b);
   });
 }
 function selectModule(m){
-  animating=false; animFrame=0; $('runBtn').textContent='▶️ Jalankan'; active=m;
-  $('moduleTitle').textContent=m.name; $('moduleDesc').textContent=m.desc;
-  $('formulaText').innerHTML='<code>'+m.formula+'</code>';$('conceptText').textContent=m.concept;
-  $('controls').innerHTML='';
+  animating = false; animFrame = 0; getEl('runBtn').textContent = '▶️ Jalankan'; active = m;
+  renderModules();
+  getEl('moduleTitle').textContent = m.name; getEl('moduleDesc').textContent = m.desc;
+  getEl('formulaText').innerHTML = '<code>'+m.formula+'</code>'; getEl('conceptText').textContent = m.concept;
+  getEl('controls').innerHTML = '';
   m.vars.forEach((v,i)=>{
-    let d=document.createElement('div'); d.className='control';
-    d.innerHTML=<div class="control-head"><label>${v[0]}</label><output id="o${i}">${v[1]} ${v[5]}</output></div><input id="v${i}" type="range" min="${v[2]}" max="${v[3]}" step="${v[4]}" value="${v[1]}">;
-    d.querySelector('input').oninput=()=>{ $('o'+i).textContent=$('v'+i).value+' '+v[5]; update(); };$('controls').appendChild(d);
+    let d = document.createElement('div'); d.className = 'control';
+    d.innerHTML = <div class="control-head"><label>${v[0]}</label><output id="o${i}">${v[1]} ${v[5]}</output></div><input id="v${i}" type="range" min="${v[2]}" max="${v[3]}" step="${v[4]}" value="${v[1]}">;
+    d.querySelector('input').oninput = () => { getEl('o'+i).textContent = getEl('v'+i).value+' '+v[5]; update(); };
+    getEl('controls').appendChild(d);
   });
   update(); draw();
 }
 function update(){
-  let vals=getVals(), met=active.metrics(vals);
-  $('results').innerHTML=met.map(x=><div class="result"><small>${x[0]}</small><b>${x[1]}</b></div>).join('');
+  let vals = getVals(), met = active.metrics(vals);
+  getEl('results').innerHTML = met.map(x=><div class="result"><small>${x[0]}</small><b>${x[1]}</b></div>).join('');
   draw();
 }
 function draw(){
-  const w=canvas.width, h=canvas.height;
-  ctx.clearRect(0,0,w,h); ctx.fillStyle='#07101f'; ctx.fillRect(0,0,w,h);
-  let v=getVals();
-  if(active.kind==='projectile'){
-    let a=v[1]*Math.PI/180, speed=v[0], g=v[2];
-    let T=2*speed*Math.sin(a)/g, maxX=speed*Math.cos(a)T, maxY=speed*2*Math.sin(a)*2/(2*g);
-    ctx.strokeStyle='#59e1e8'; ctx.lineWidth=3; ctx.beginPath();
-    for(let i=0;i<=50;i++){
-      let t=T*i/50, x=speed*Math.cos(a)*t, y=speed*Math.sin(a)*t-.5*g*t*t;
-      let sx=45+x/maxX*(w-90), sy=h-42-y/Math.max(1,maxY)*(h-80);
-      i?ctx.lineTo(sx,sy):ctx.moveTo(sx,sy);
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0,0,w,h); ctx.fillStyle = '#07101f'; ctx.fillRect(0,0,w,h);
+  let v = getVals();
+  if(active.kind === 'projectile'){
+    let a = v[1]*Math.PI/180, speed = v[0], g = v[2];
+    let T = 2*speed*Math.sin(a)/g, maxX = speed*Math.cos(a)T, maxY = (speed2)(Math.sin(a)**2)/(2*g);
+    ctx.strokeStyle = '#59e1e8'; ctx.lineWidth = 3; ctx.beginPath();
+    for(let i=0; i<=50; i++){
+      let t = T*i/50, x = speed*Math.cos(a)*t, y = speed*Math.sin(a)*t - 0.5*g*t*t;
+      let sx = 45 + x/Math.max(1,maxX)(w-90), sy = h - 42 - y/Math.max(1,maxY)(h-80);
+      i ? ctx.lineTo(sx,sy) : ctx.moveTo(sx,sy);
     }
     ctx.stroke();
-    let currT=(animFrame*0.04)%T, px=45+(speed*Math.cos(a)currT)/maxX(w-90);
-    let py=h-42-((speed*Math.sin(a)currT-.5*g*currT*currT)/Math.max(1,maxY)(h-80));
-    ctx.fillStyle='#b8f28b'; ctx.beginPath(); ctx.arc(px,py,7,0,Math.PI*2); ctx.fill();
-  } else if(active.kind==='atwood'){
-    let sys_a=(v[1]-v[0])*v[2]/(v[0]+v[1]);
-    let shift=Math.sin(animFrame/10)*20*Math.sign(sys_a);
-    ctx.strokeStyle='#79a9ff'; ctx.lineWidth=4; ctx.beginPath(); ctx.arc(w/2,80,30,0,Math.PI*2); ctx.stroke();
-    ctx.fillStyle='#b8f28b'; ctx.fillRect(w/2-55,80+shift,40,40);
-    ctx.fillStyle='#ff9bc2'; ctx.fillRect(w/2+15,80-shift,40,40);
+    let currT = (animFrame*0.03)%T;
+    let px = 45 + (speed*Math.cos(a)currT)/Math.max(1,maxX)(w-90);
+    let py = h - 42 - ((speed*Math.sin(a)currT - 0.5*g*currT*currT)/Math.max(1,maxY)(h-80));
+    ctx.fillStyle = '#b8f28b'; ctx.beginPath(); ctx.arc(px,py,7,0,Math.PI*2); ctx.fill();
+  } else if(active.kind === 'atwood'){
+    let sys_a = (v[1]-v[0])*v[2]/(v[0]+v[1]);
+    let shift = Math.sin(animFrame/10)20(sys_a !== 0 ? Math.sign(sys_a) : 1);
+    ctx.strokeStyle = '#79a9ff'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(w/2,80,30,0,Math.PI*2); ctx.stroke();
+    ctx.fillStyle = '#b8f28b'; ctx.fillRect(w/2-55,80+shift,40,40);
+    ctx.fillStyle = '#ff9bc2'; ctx.fillRect(w/2+15,80-shift,40,40);
   }
-  if(animating){animFrame++; requestAnimationFrame(draw);}
+  if(animating){ animFrame++; requestAnimationFrame(draw); }
 }
-$('runBtn').onclick=()=>{animating=true; draw();$('runBtn').textContent='⏸️ Berjalan';};
-$('resetBtn').onclick=()=>{animating=false; animFrame=0; $('runBtn').textContent='▶️ Jalankan'; selectModule(active);};
+getEl('runBtn').onclick = () => { animating = true; draw(); getEl('runBtn').textContent = '⏸️ Berjalan'; };
+getEl('resetBtn').onclick = () => { animating = false; animFrame = 0; getEl('runBtn').textContent = '▶️ Jalankan'; selectModule(active); };
 renderModules(); selectModule(active);
 </script>
 </body>
