@@ -1,90 +1,134 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#0b1224">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>PhysLab — Laboratorium Fisika Virtual</title>
 <style>
-:root{--bg:#081120;--panel:#111d33;--panel2:#172640;--line:#293b58;--text:#edf4ff;--muted:#a7b8d2;--cyan:#59e1e8;--blue:#79a9ff;--lime:#b8f28b;--pink:#ff9bc2}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#132b49 0,#081120 58%);color:var(--text);font:15px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:10px 14px;background:var(--cyan);color:#06202b;font-weight:750}button.secondary{background:#233754;color:var(--text);border:1px solid var(--line)}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-header{padding:28px 18px 18px;max-width:1200px;margin:auto}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#081120;font-weight:950;font-size:20px;box-shadow:0 8px 30px #59e1e833}
-h1{font-size:clamp(1.7rem,4vw,2.7rem);line-height:1.1;margin:0}h1 span{color:var(--cyan)}header p{color:var(--muted);max-width:720px;margin:14px 0 0}
-main{max-width:1200px;margin:auto;padding:0 18px 40px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 22px}.stat,.panel,.module-card{background:linear-gradient(160deg,#14223aee,#0e192bee);border:1px solid var(--line);border-radius:18px}.stat{padding:13px}.stat b{font-size:1.3rem;display:block;color:var(--cyan)}.stat small{color:var(--muted)}
-.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:16px}.panel{padding:16px;min-width:0}.panel h2{margin:0 0 12px;font-size:1.08rem}.search{width:100%;padding:11px;border-radius:11px;border:1px solid var(--line);background:#091426;color:var(--text);margin-bottom:10px}
-.tabs{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:12px}.tabs button{flex:1;min-width:90px}.tabs button.active{background:var(--cyan);color:#06151e}.module-list{display:grid;gap:7px;max-height:640px;overflow:auto;padding-right:3px}.module-btn{text-align:left;width:100%;background:#101e33;color:var(--text);border:1px solid transparent;padding:10px 11px;display:flex;gap:10px;align-items:flex-start}.module-btn.active{border-color:var(--cyan);background:#16334a}.module-btn .num{background:#253b59;border-radius:8px;min-width:28px;height:28px;display:grid;place-items:center;color:var(--cyan);font-weight:800;font-size:12px}.module-btn strong{display:block;font-size:13px}.module-btn small{color:var(--muted);font-size:11px}
-.kicker{color:var(--cyan);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.13em}.workspace-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.workspace-head h2{font-size:clamp(1.25rem,3vw,1.8rem);margin:4px 0}.workspace-head p{color:var(--muted);margin:0}.tag{border:1px solid #386174;color:var(--cyan);padding:5px 9px;border-radius:999px;font-size:11px;white-space:nowrap}
-.sim-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(230px,.75fr);gap:12px}.visual{background:#07101f;border:1px solid var(--line);border-radius:15px;overflow:hidden;min-height:260px;position:relative}.visual canvas{width:100%;height:300px;display:block}.visual-label{position:absolute;top:10px;left:11px;font-size:11px;color:#b9c9df;background:#0b1729cc;padding:4px 8px;border-radius:8px}.controls{display:grid;gap:11px}.control{background:#0b1729;border:1px solid var(--line);padding:10px 11px;border-radius:12px}.control-head{display:flex;justify-content:space-between;gap:8px;font-size:12px;margin-bottom:6px}.control-head output{color:var(--cyan);font-weight:800}input[type=range]{width:100%;accent-color:var(--cyan)}.control select{width:100%;background:#13233a;color:var(--text);border:1px solid var(--line);border-radius:8px;padding:8px}
-.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.result{padding:12px;background:#102039;border:1px solid var(--line);border-radius:13px;min-width:0}.result small{display:block;color:var(--muted);font-size:11px}.result b{display:block;font-size:1.05rem;color:var(--lime);overflow-wrap:anywhere}
-.below{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.formula{background:#0b1729;border:1px solid var(--line);padding:13px;border-radius:13px}.formula p{margin:5px 0;color:var(--muted);font-size:13px}.formula code{color:var(--cyan);white-space:normal}.table-wrap{overflow:auto;max-height:230px;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line);white-space:nowrap}th{background:#152740;color:var(--cyan);position:sticky;top:0}td{color:#d6e2f4}.note{color:var(--muted);font-size:12px;margin-top:10px}.footer{text-align:center;color:#8499b7;font-size:12px;padding:22px 10px 6px}
-@media(max-width:850px){.layout{grid-template-columns:1fr}.module-list{max-height:250px;grid-template-columns:repeat(2,minmax(0,1fr))}.sim-grid{grid-template-columns:1fr}.visual canvas{height:270px}.below{grid-template-columns:1fr}}
-@media(max-width:480px){header{padding:22px 14px 14px}main{padding:0 12px 30px}.stats{gap:7px}.stat{padding:10px}.stat b{font-size:1.1rem}.module-list{grid-template-columns:1fr}.workspace-head{display:block}.tag{display:inline-block;margin-top:9px}.results{gap:6px}.result{padding:9px}.result b{font-size:.95rem}.panel{padding:12px}}
-</style></head>
+:root{--bg:#081120;--panel:#111d33;--line:#293b58;--text:#edf4ff;--muted:#a7b8d2;--cyan:#59e1e8;--blue:#79a9ff;--lime:#b8f28b;--pink:#ff9bc2}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#132b49 0,#081120 58%);color:var(--text);font:15px/1.55 system-ui,-apple-system,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer;border:0;border-radius:12px;padding:10px 14px;background:var(--cyan);color:#06202b;font-weight:750}button.secondary{background:#233754;color:var(--text);border:1px solid var(--line)}
+header{padding:28px 18px 18px;max-width:1200px;margin:auto}.brand{display:flex;align-items:center;gap:12px}.logo{width:48px;height:48px;border-radius:15px;background:linear-gradient(135deg,var(--cyan),var(--blue));display:grid;place-items:center;color:#081120;font-weight:950;font-size:20px}
+h1{font-size:clamp(1.7rem,4vw,2.7rem);margin:0}h1 span{color:var(--cyan)}header p{color:var(--muted);max-width:720px;margin:14px 0 0}
+main{max-width:1200px;margin:auto;padding:0 18px 40px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0 22px}.stat,.panel{background:#14223a;border:1px solid var(--line);border-radius:18px}.stat{padding:13px}.stat b{font-size:1.3rem;display:block;color:var(--cyan)}.stat small{color:var(--muted)}
+.layout{display:grid;grid-template-columns:290px minmax(0,1fr);gap:16px}.panel{padding:16px}.search{width:100%;padding:11px;border-radius:11px;border:1px solid var(--line);background:#091426;color:var(--text);margin-bottom:10px}
+.tabs{display:flex;gap:7px;margin-bottom:12px}.tabs button{flex:1}.tabs button.secondary{background:#233754;color:var(--text)}
+.module-list{display:grid;gap:7px;max-height:640px;overflow:auto}.module-btn{text-align:left;width:100%;background:#101e33;color:var(--text);border:1px solid transparent;padding:10px 11px;display:flex;gap:10px;align-items:flex-start}.module-btn.active{border-color:var(--cyan);background:#16334a}.module-btn .num{background:#253b59;border-radius:8px;min-width:28px;height:28px;display:grid;place-items:center;color:var(--cyan);font-weight:800;font-size:12px}.module-btn strong{display:block;font-size:13px}.module-btn small{color:var(--muted);font-size:11px}
+.kicker{color:var(--cyan);font-weight:800;font-size:11px;text-transform:uppercase;letter-spacing:.13em}.workspace-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}.workspace-head h2{font-size:1.5rem;margin:4px 0}.tag{border:1px solid #386174;color:var(--cyan);padding:5px 9px;border-radius:999px;font-size:11px}
+.sim-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(230px,.75fr);gap:12px}.visual{background:#07101f;border:1px solid var(--line);border-radius:15px;overflow:hidden;position:relative}.visual canvas{width:100%;height:300px;display:block}.visual-label{position:absolute;top:10px;left:11px;font-size:11px;color:#b9c9df;background:#0b1729cc;padding:4px 8px;border-radius:8px}
+.controls{display:grid;gap:11px}.control{background:#0b1729;border:1px solid var(--line);padding:10px 11px;border-radius:12px}.control-head{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px}.control-head output{color:var(--cyan);font-weight:800}input[type=range]{width:100%;accent-color:var(--cyan)}
+.actions{display:flex;gap:8px;margin-top:12px}.results{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}.result{padding:12px;background:#102039;border:1px solid var(--line);border-radius:13px}.result small{display:block;color:var(--muted);font-size:11px}.result b{display:block;font-size:1.05rem;color:var(--lime)}
+.below{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.formula{background:#0b1729;border:1px solid var(--line);padding:13px;border-radius:13px}.formula p{margin:5px 0;color:var(--muted);font-size:13px}.formula code{color:var(--cyan)}.table-wrap{overflow:auto;max-height:230px;border:1px solid var(--line);border-radius:12px}table{border-collapse:collapse;width:100%;font-size:12px}th,td{text-align:left;padding:9px;border-bottom:1px solid var(--line)}th{background:#152740;color:var(--cyan);position:sticky;top:0}td{color:#d6e2f4}.footer{text-align:center;color:#8499b7;font-size:12px;padding:22px 10px}
+@media(max-width:850px){.layout,.sim-grid,.below{grid-template-columns:1fr}}
+</style>
+</head>
 <body>
-<header><div class="brand"><div class="logo">Φ</div><div><div class="kicker">Virtual Physics Laboratory</div><h1>Phys<span>Lab</span></h1></div></div><p>Ruang eksperimen fisika virtual untuk mahasiswa dan siswa SMA. Pilih modul, ubah variabel, amati simulasi, dan bandingkan hasil perhitungan.</p></header>
+<header>
+  <div class="brand"><div class="logo">Φ</div><div><div class="kicker">Virtual Physics Laboratory</div><h1>Phys<span>Lab</span></h1></div></div>
+  <p>Ruang eksperimen fisika virtual untuk mahasiswa dan siswa SMA.</p>
+</header>
 <main>
-<div class="stats"><div class="stat"><b id="moduleCount">19</b><small>Modul simulasi</small></div><div class="stat"><b>2 jenjang</b><small>Fisika Dasar I & SMA</small></div><div class="stat"><b>100% web</b><small>Tanpa instalasi</small></div></div>
+<div class="stats">
+  <div class="stat"><b id="moduleCount">2</b><small>Modul simulasi</small></div>
+  <div class="stat"><b>2 jenjang</b><small>Fisika Dasar I & SMA</small></div>
+  <div class="stat"><b>100% web</b><small>Tanpa instalasi</small></div>
+</div>
 <div class="layout">
-<aside class="panel"><h2>Pilih eksperimen</h2><input class="search" id="search" placeholder="Cari modul..." aria-label="Cari modul"><div class="tabs"><button class="active" data-group="all">Semua</button><button class="secondary" data-group="dasar">Dasar I</button><button class="secondary" data-group="sma">SMA</button></div><div class="module-list" id="moduleList"></div></aside>
-<section class="panel"><div class="workspace-head"><div><div class="kicker" id="moduleGroup">Fisika Dasar I</div><h2 id="moduleTitle">Dasar-Dasar Pengukuran</h2><p id="moduleDesc">Eksplorasi variabel dan hasil eksperimen.</p></div><span class="tag">SIMULASI INTERAKTIF</span></div>
-<div class="sim-grid"><div class="visual"><span class="visual-label" id="visualLabel">Visualisasi model</span><canvas id="simCanvas" width="720" height="360"></canvas></div><div><h2>Variabel eksperimen</h2><div class="controls" id="controls"></div><div class="actions"><button id="runBtn">▶ Jalankan simulasi</button><button class="secondary" id="resetBtn">Atur ulang</button></div></div></div>
-<div class="results" id="results"></div><div class="below"><div class="formula"><h2>Model / konsep fisika</h2><p id="formulaText"></p><p id="conceptText"></p></div><div class="formula"><h2>Catatan eksperimen</h2><p id="observationText">Ubah variabel lalu jalankan simulasi untuk memperbarui hasil.</p><button class="secondary" id="recordBtn">＋ Simpan hasil ke tabel</button></div></div>
-<div style="margin-top:14px"><h2>Tabel pengamatan</h2><div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div><p class="note">Catatan: hasil berasal dari model matematika sederhana untuk pembelajaran, bukan pengukuran alat laboratorium nyata. Beberapa modul menampilkan model konseptual agar prinsip dasarnya mudah diamati.</p></div>
-</section></div><div class="footer">PhysLab • Belajar Fisika, Bereksperimen Tanpa Batas.</div></main>
+<aside class="panel">
+  <h2>Pilih eksperimen</h2>
+  <input class="search" id="search" placeholder="Cari modul...">
+  <div class="tabs"><button class="active" data-group="all">Semua</button><button class="secondary" data-group="dasar">Dasar I</button><button class="secondary" data-group="sma">SMA</button></div>
+  <div class="module-list" id="moduleList"></div>
+</aside>
+<section class="panel">
+  <div class="workspace-head">
+    <div><div class="kicker" id="moduleGroup">Fisika Dasar I</div><h2 id="moduleTitle">Dasar Pengukuran</h2><p id="moduleDesc">Eksplorasi variabel.</p></div>
+    <span class="tag">SIMULASI INTERAKTIF</span>
+  </div>
+  <div class="sim-grid">
+    <div class="visual"><span class="visual-label" id="visualLabel">Visualisasi</span><canvas id="simCanvas" width="720" height="360"></canvas></div>
+    <div><h2>Variabel</h2><div class="controls" id="controls"></div><div class="actions"><button id="runBtn">▶️ Jalankan</button><button class="secondary" id="resetBtn">Atur ulang</button></div></div>
+  </div>
+  <div class="results" id="results"></div>
+  <div class="below">
+    <div class="formula"><h2>Konsep</h2><p id="formulaText"></p><p id="conceptText"></p></div>
+    <div class="formula"><h2>Catatan</h2><p id="observationText">Ubah variabel.</p><button class="secondary" id="recordBtn">＋ Simpan</button></div>
+  </div>
+  <div style="margin-top:14px"><h2>Tabel</h2><div class="table-wrap"><table><thead id="tableHead"></thead><tbody id="tableBody"></tbody></table></div></div>
+</section>
+</div>
+<div class="footer">PhysLab • 2026</div>
+</main>
 <script>
 const modules = [
-{id:'ukur',g:'dasar',name:'Dasar-Dasar Pengukuran',desc:'Pelajari ketelitian, resolusi alat, dan ketidakpastian pengukuran.',vars:[['Panjang benda',10,1,30,.5,'cm'],['Resolusi alat',0.1,0.01,1,.01,'cm'],['Jumlah pengukuran',5,1,10,1,'kali']],formula:'Ketidakpastian resolusi sederhana ≈ ±½ × resolusi alat.',concept:'Semakin kecil resolusi alat, semakin halus perubahan nilai yang dapat dibaca.',metrics:(v)=>[['Panjang',v[0].toFixed(2)+' cm'],['Ketidakpastian', '±'+(v[1]/2).toFixed(3)+' cm'],['Pengukuran',v[2]+' kali']],kind:'measure'},
-{id:'atwood',g:'dasar',name:'Percobaan Pesawat Atwood',desc:'Amati gerak dua massa yang dihubungkan tali melalui katrol ideal.',vars:[['Massa m₁',0.15,.05,.5,.01,'kg'],['Massa m₂',0.25,.05,.5,.01,'kg'],['Gravitasi',9.8,1,10,.1,'m/s²']],formula:'a = (m₂ − m₁)g / (m₁ + m₂)',concept:'Perbedaan massa menghasilkan gaya netto dan percepatan sistem.',metrics:(v)=>{let a=(v[1]-v[0])*v[2]/(v[0]+v[1]);return [['Percepatan',a.toFixed(2)+' m/s²'],['Gaya netto',Math.abs((v[1]-v[0])*v[2]).toFixed(2)+' N'],['Massa total',(v[0]+v[1]).toFixed(2)+' kg']]},kind:'atwood'},
-{id:'energi',g:'dasar',name:'Konservasi Energi',desc:'Bandingkan energi potensial dan energi kinetik saat benda bergerak.',vars:[['Massa benda',1,.1,5,.1,'kg'],['Ketinggian awal',2,.2,10,.2,'m'],['Ketinggian saat ini',.8,0,10,.2,'m']],formula:'Eₚ = mgh; Eₖ = ½mv²; (ideal) E total tetap.',concept:'Energi potensial dapat berubah menjadi energi kinetik. Model mengabaikan gesekan.',metrics:(v)=>{let ep=v[0]*9.8*v[1], ec=v[0]*9.8*Math.max(0,v[1]-Math.min(v[1],v[2]));return [['Energi potensial awal',ep.toFixed(2)+' J'],['Energi kinetik model',ec.toFixed(2)+' J'],['Energi mekanik awal',ep.toFixed(2)+' J']]},kind:'energy'},
-{id:'inersia',g:'dasar',name:'Inersia Rotasi',desc:'Lihat pengaruh massa dan jari-jari terhadap momen inersia cakram.',vars:[['Massa cakram',1,.1,5,.1,'kg'],['Jari-jari',.2,.05,.8,.05,'m'],['Torsi',.5,.1,3,.1,'N·m']],formula:'Cakram pejal: I = ½mR²; α = τ/I.',concept:'Massa yang lebih jauh dari sumbu rotasi cenderung meningkatkan momen inersia.',metrics:(v)=>{let I=.5*v[0]*v[1]*v[1];return [['Momen inersia',I.toFixed(3)+' kg·m²'],['Percepatan sudut',(v[2]/I).toFixed(2)+' rad/s²'],['Torsi',v[2].toFixed(2)+' N·m']]},kind:'rotation'},
-{id:'hidro',g:'dasar',name:'Tekanan Hidrostatis',desc:'Ubah kedalaman, massa jenis fluida, dan gravitasi.',vars:[['Kedalaman',1,.1,5,.1,'m'],['Massa jenis',1000,500,1300,50,'kg/m³'],['Gravitasi',9.8,1,10,.1,'m/s²']],formula:'P = ρgh (tekanan ukur/gauge).',concept:'Tekanan fluida bertambah seiring kedalaman dan massa jenis.',metrics:(v)=>[['Tekanan hidrostatis',(v[0]*v[1]*v[2]/1000).toFixed(2)+' kPa'],['Kedalaman',v[0].toFixed(1)+' m'],['Massa jenis',v[1]+' kg/m³']],kind:'hydro'},
-{id:'arch',g:'dasar',name:'Hukum Archimedes',desc:'Amati gaya apung pada benda tercelup di dalam fluida.',vars:[['Volume tercelup',.002,.0005,.01,.0005,'m³'],['Massa jenis fluida',1000,700,1300,50,'kg/m³'],['Massa benda',1,.1,8,.1,'kg']],formula:'Fₐ = ρfluida g Vtercelup.',concept:'Gaya apung sama dengan berat fluida yang dipindahkan.',metrics:(v)=>{let f=v[0]*v[1]*9.8,w=v[2]*9.8;return [['Gaya apung',f.toFixed(2)+' N'],['Berat benda',w.toFixed(2)+' N'],['Kecenderungan',f>w?'Mengapung/naik':'Tenggelam/turun']]},kind:'arch'},
-{id:'muai',g:'dasar',name:'Pemuaian (Thermal Expansion)',desc:'Amati pertambahan panjang batang akibat kenaikan suhu.',vars:[['Panjang awal',1,.2,5,.1,'m'],['Koefisien muai',0.000012,.000001,.00003,.000001,'/°C'],['Kenaikan suhu',50,5,200,5,'°C']],formula:'ΔL = αL₀ΔT.',concept:'Untuk rentang suhu kecil, pertambahan panjang sebanding dengan panjang awal dan perubahan suhu.',metrics:(v)=>{let d=v[0]*v[1]*v[2];return [['Pertambahan panjang',(d*1000).toFixed(3)+' mm'],['Panjang akhir',(v[0]+d).toFixed(5)+' m'],['Kenaikan suhu',v[2]+' °C']]},kind:'expansion'},
-{id:'gelombang',g:'dasar',name:'Gelombang Mekanik',desc:'Hubungkan frekuensi, panjang gelombang, dan cepat rambat.',vars:[['Frekuensi',2,.5,10,.5,'Hz'],['Panjang gelombang',1,.2,5,.1,'m'],['Amplitudo',1,.2,3,.1,'satuan']],formula:'v = fλ.',concept:'Cepat rambat gelombang sama dengan hasil kali frekuensi dan panjang gelombang.',metrics:(v)=>[['Cepat rambat',(v[0]*v[1]).toFixed(2)+' m/s'],['Periode',(1/v[0]).toFixed(3)+' s'],['Amplitudo',v[2].toFixed(1)]],kind:'wave'},
-{id:'ripple',g:'dasar',name:'Percobaan Ripple Tank',desc:'Amati pola muka gelombang pada permukaan air dan pengaruh frekuensi.',vars:[['Frekuensi sumber',4,.5,10,.5,'Hz'],['Kecepatan gelombang',0.4,.1,1,.1,'m/s'],['Jarak dua sumber',.5,.1,1.5,.1,'m']],formula:'λ = v/f; pola interferensi dipengaruhi jarak sumber dan panjang gelombang.',concept:'Dua sumber gelombang dapat menghasilkan daerah penguatan dan pelemahan.',metrics:(v)=>[['Panjang gelombang',(v[1]/v[0]).toFixed(3)+' m'],['Frekuensi',v[0]+' Hz'],['Jarak sumber',v[2].toFixed(1)+' m']],kind:'ripple'},
-{id:'glbb',g:'sma',name:'Gerak Lurus (GLB & GLBB)',desc:'Ubah kecepatan awal, percepatan, dan waktu untuk melihat posisi benda.',vars:[['Kecepatan awal',2,0,20,1,'m/s'],['Percepatan',2,-5,5,.5,'m/s²'],['Waktu',4,1,10,.5,'s']],formula:'x = v₀t + ½at²; v = v₀ + at.',concept:'Pada GLB percepatan nol; pada GLBB kecepatan berubah teratur.',metrics:(v)=>[['Perpindahan',(v[0]*v[2]+.5*v[1]*v[2]**2).toFixed(2)+' m'],['Kecepatan akhir',(v[0]+v[1]*v[2]).toFixed(2)+' m/s'],['Waktu',v[2]+' s']],kind:'motion'},
-{id:'parabola',g:'sma',name:'Gerak Parabola',desc:'Atur kecepatan awal dan sudut untuk mengamati lintasan proyektil.',vars:[['Kecepatan awal',20,5,40,1,'m/s'],['Sudut elevasi',45,10,80,1,'°'],['Gravitasi',9.8,1,10,.1,'m/s²']],formula:'R = v₀² sin(2θ)/g; Hmaks = v₀² sin²θ/(2g).',concept:'Komponen horizontal dan vertikal bergerak dengan karakteristik berbeda.',metrics:(v)=>{let a=v[1]*Math.PI/180;return [['Jangkauan',(v[0]**2*Math.sin(2*a)/v[2]).toFixed(2)+' m'],['Tinggi maksimum',(v[0]**2*Math.sin(a)**2/(2*v[2])).toFixed(2)+' m'],['Waktu total',(2*v[0]*Math.sin(a)/v[2]).toFixed(2)+' s']]},kind:'projectile'},
-{id:'newton',g:'sma',name:'Hukum Newton & Gaya Gesek',desc:'Pelajari gaya netto, massa, percepatan, dan gesekan sederhana.',vars:[['Gaya dorong',20,0,100,5,'N'],['Massa benda',5,1,30,1,'kg'],['Koefisien gesek',.2,0,.8,.05,'μ']],formula:'Fgesek = μmg; a = (F − Fgesek)/m jika gaya dorong melebihi gesek.',concept:'Resultan gaya menentukan percepatan benda.',metrics:(v)=>{let f=v[2]*v[1]*9.8;return [['Gaya gesek model',f.toFixed(2)+' N'],['Resultan gaya',(v[0]-f).toFixed(2)+' N'],['Percepatan model',((v[0]-f)/v[1]).toFixed(2)+' m/s²']]},kind:'force'},
-{id:'usaha',g:'sma',name:'Usaha dan Energi',desc:'Ubah gaya dan perpindahan untuk menghitung usaha serta energi kinetik.',vars:[['Gaya',20,1,100,5,'N'],['Perpindahan',5,.5,20,.5,'m'],['Massa',2,.5,10,.5,'kg']],formula:'W = Fs (gaya searah perpindahan); Wnet = ΔEₖ.',concept:'Usaha oleh gaya dapat mengubah energi kinetik benda.',metrics:(v)=>[['Usaha',(v[0]*v[1]).toFixed(2)+' J'],['Massa',v[2]+' kg'],['Energi dari usaha',(v[0]*v[1]).toFixed(2)+' J']],kind:'energy'},
-{id:'momentum',g:'sma',name:'Momentum dan Tumbukan',desc:'Amati momentum dua benda dan kecepatan bersama setelah tumbukan tidak lenting.',vars:[['Massa 1',2,.5,8,.5,'kg'],['Kecepatan 1',4,-10,10,1,'m/s'],['Massa 2',3,.5,8,.5,'kg']],formula:'p = mv; tumbukan tidak lenting sempurna: vf = (m₁v₁ + m₂v₂)/(m₁+m₂).',concept:'Momentum total sistem tertutup tetap jika gaya luar netto dapat diabaikan.',metrics:(v)=>[['Momentum benda 1',(v[0]*v[1]).toFixed(2)+' kg·m/s'],['Kecepatan gabungan',((v[0]*v[1])/(v[0]+v[2])).toFixed(2)+' m/s'],['Massa total',(v[0]+v[2]).toFixed(2)+' kg']],kind:'collision'},
-{id:'bandul',g:'sma',name:'Getaran Harmonik & Bandul',desc:'Ubah panjang tali dan gravitasi untuk mengamati periode bandul sederhana.',vars:[['Panjang tali',1,.2,2.5,.1,'m'],['Gravitasi',9.8,1,10,.1,'m/s²'],['Amplitudo sudut',15,5,35,5,'°']],formula:'T ≈ 2π√(L/g) untuk sudut kecil.',concept:'Periode bertambah saat tali lebih panjang dan berkurang saat gravitasi lebih besar.',metrics:(v)=>[['Periode',(2*Math.PI*Math.sqrt(v[0]/v[1])).toFixed(3)+' s'],['Frekuensi',(1/(2*Math.PI*Math.sqrt(v[0]/v[1]))).toFixed(3)+' Hz'],['Panjang tali',v[0]+' m']],kind:'pendulum'},
-{id:'bunyi',g:'sma',name:'Gelombang dan Bunyi',desc:'Hitung panjang gelombang bunyi dari frekuensi dan cepat rambat.',vars:[['Frekuensi',440,100,1000,20,'Hz'],['Cepat rambat bunyi',343,300,360,1,'m/s'],['Amplitudo',1,.2,3,.1,'satuan']],formula:'λ = v/f.',concept:'Nada lebih tinggi memiliki frekuensi lebih besar; panjang gelombang bergantung pada medium.',metrics:(v)=>[['Panjang gelombang',(v[1]/v[0]).toFixed(3)+' m'],['Periode',(1/v[0]*1000).toFixed(2)+' ms'],['Frekuensi',v[0]+' Hz']],kind:'wave'},
-{id:'optik',g:'sma',name:'Optik: Cermin dan Lensa',desc:'Eksplorasi posisi bayangan pada lensa tipis ideal.',vars:[['Jarak benda',30,10,100,5,'cm'],['Fokus lensa',10,5,25,1,'cm'],['Tinggi benda',4,1,10,1,'cm']],formula:'1/f = 1/sₒ + 1/sᵢ; perbesaran m = −sᵢ/sₒ.',concept:'Posisi bayangan dipengaruhi jarak benda dan panjang fokus.',metrics:(v)=>{let si=Math.abs(v[0]-v[1])<.01?999:(v[1]*v[0])/(v[0]-v[1]);return [['Jarak bayangan',si>100?'Sangat jauh':si.toFixed(2)+' cm'],['Perbesaran',(-si/v[0]).toFixed(2)+'×'],['Fokus',v[1]+' cm']]},kind:'optics'},
-{id:'listrik',g:'sma',name:'Listrik Dinamis & Rangkaian',desc:'Atur tegangan dan hambatan untuk menghitung arus dan daya.',vars:[['Tegangan',12,1,24,1,'V'],['Hambatan',6,1,30,1,'Ω'],['Waktu',10,1,60,1,'s']],formula:'I = V/R; P = VI; E = Pt.',concept:'Untuk hambatan ohmik, arus berbanding lurus dengan tegangan dan berbanding terbalik dengan hambatan.',metrics:(v)=>[['Arus',(v[0]/v[1]).toFixed(2)+' A'],['Daya',(v[0]**2/v[1]).toFixed(2)+' W'],['Energi',(v[0]**2/v[1]*v[2]).toFixed(2)+' J']],kind:'circuit'},
-{id:'magnet',g:'sma',name:'Magnetisme & Induksi',desc:'Model konseptual perubahan fluks magnet dan ggl induksi.',vars:[['Jumlah lilitan',100,10,500,10,'lilitan'],['Perubahan fluks',.02,.005,.1,.005,'Wb'],['Waktu perubahan',.1,.02,1,.02,'s']],formula:'|ε| ≈ N|ΔΦ|/Δt.',concept:'Ggl induksi membesar jika jumlah lilitan atau perubahan fluks per waktu membesar.',metrics:(v)=>[['Ggl induksi',(v[0]*v[1]/v[2]).toFixed(2)+' V'],['Jumlah lilitan',v[0]+''],['Laju perubahan fluks',(v[1]/v[2]).toFixed(3)+' Wb/s']],kind:'induction'}
+  {id:'atwood',g:'dasar',name:'Percobaan Pesawat Atwood',desc:'Amati gerak dua massa pada katrol.',vars:[['Massa m₁',0.15,.05,.5,.01,'kg'],['Massa m₂',0.25,.05,.5,.01,'kg'],['Gravitasi',9.8,1,10,.1,'m/s²']],formula:'a = (m₂ − m₁)g / (m₁ + m₂)',concept:'Perbedaan massa menghasilkan percepatan.',metrics:(v)=>{let a=(v[1]-v[0])*v[2]/(v[0]+v[1]);return [['Percepatan',a.toFixed(2)+' m/s²'],['Gaya netto',Math.abs((v[1]-v[0])*v[2]).toFixed(2)+' N'],['Massa total',(v[0]+v[1]).toFixed(2)+' kg']]},kind:'atwood'},
+  {id:'parabola',g:'sma',name:'Gerak Parabola',desc:'Atur kecepatan awal dan sudut.',vars:[['Kecepatan awal',20,5,40,1,'m/s'],['Sudut elevasi',45,10,80,1,'°'],['Gravitasi',9.8,1,10,.1,'m/s²']],formula:'R = v₀² sin(2θ)/g',concept:'Komponen gerak proyektil.',metrics:(v)=>{let a=v[1]Math.PI/180;return [['Jangkauan',(v[0]2*Math.sin(2*a)/v[2]).toFixed(2)+' m'],['Tinggi maks',(v[0]2*Math.sin(a)*2/(2*v[2])).toFixed(2)+' m'],['Waktu total',(2*v[0]*Math.sin(a)/v[2]).toFixed(2)+' s']]},kind:'projectile'}
 ];
-let active=modules[0], currentGroup='all', animating=false, animFrame=0, records=[];
-const $=id=>document.getElementById(id), canvas=$('simCanvas'), ctx=canvas.getContext('2d');
-function fmt(x){return Number(x).toLocaleString('id-ID',{maximumFractionDigits:3})}
-function getVals(){return active.vars.map((_,i)=>Number($('v'+i).value))}
-function renderModules(){const q=$('search').value.toLowerCase();$('moduleList').innerHTML='';modules.filter(m=>(currentGroup==='all'||m.g===currentGroup)&&m.name.toLowerCase().includes(q)).forEach((m,i)=>{let b=document.createElement('button');b.className='module-btn'+(m.id===active.id?' active':'');b.innerHTML=`<span class="num">${String(modules.indexOf(m)+1).padStart(2,'0')}</span><span><strong>${m.name}</strong><small>${m.g==='dasar'?'Fisika Dasar I':'Tingkat SMA'}</small></span>`;b.onclick=()=>selectModule(m);$('moduleList').appendChild(b)})}
-function selectModule(m){active=m;renderModules();$('moduleGroup').textContent=m.g==='dasar'?'Fisika Dasar I • Modul Praktikum':'Fisika SMA • Modul Pengayaan';$('moduleTitle').textContent=m.name;$('moduleDesc').textContent=m.desc;$('formulaText').innerHTML='<code>'+m.formula+'</code>';$('conceptText').textContent=m.concept;$('visualLabel').textContent='Model visual: '+m.name;$('controls').innerHTML='';m.vars.forEach((v,i)=>{let d=document.createElement('div');d.className='control';d.innerHTML=`<div class="control-head"><label for="v${i}">${v[0]}</label><output id="o${i}">${v[1]} ${v[5]}</output></div><input id="v${i}" type="range" min="${v[2]}" max="${v[3]}" step="${v[4]}" value="${v[1]}">`;d.querySelector('input').oninput=()=>{ $('o'+i).textContent=$('v'+i).value+' '+v[5];update()};$('controls').appendChild(d)});update();draw()}
-function update(){let vals=getVals(), met=active.metrics(vals);$('results').innerHTML=met.map(x=>`<div class="result"><small>${x[0]}</small><b>${x[1]}</b></div>`).join('');let v=vals;$('observationText').textContent='Variabel saat ini: '+active.vars.map((a,i)=>a[0]+' '+fmt(v[i])+' '+a[5]).join('; ')+'.';draw()}
-function line(x1,y1,x2,y2,color='#39516f',w=1){ctx.strokeStyle=color;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()}
-function circle(x,y,r,color){ctx.fillStyle=color;ctx.beginPath();ctx.arc(x,y,r,0,Math.PI*2);ctx.fill()}
-function draw(){const w=canvas.width,h=canvas.height;ctx.clearRect(0,0,w,h);ctx.fillStyle='#07101f';ctx.fillRect(0,0,w,h);for(let x=25;x<w;x+=35)line(x,0,x,h,'#10213a');for(let y=20;y<h;y+=35)line(0,y,w,y,'#10213a');let v=getVals();ctx.font='16px system-ui';ctx.fillStyle='#b8cbe5';ctx.fillText(active.name,22,28);
-const kind=active.kind;
-if(kind==='projectile'||kind==='motion'){let a=(kind==='projectile'?v[1]*Math.PI/180:Math.PI/5),speed=v[0],g=kind==='projectile'?v[2]:Math.max(.1,Math.abs(v[1]));let T=kind==='projectile'?2*speed*Math.sin(a)/g:Math.max(2,v[2]);let maxX=kind==='projectile'?speed*Math.cos(a)*T:Math.max(10,Math.abs(speed*T+.5*v[1]*T*T));let maxY=kind==='projectile'?speed*speed*Math.sin(a)**2/(2*g):Math.max(4,Math.abs(v[1])*T*T/2);line(45,h-42,w-20,h-42,'#7186a6',2);let px=45+(w-90)*.42, py=h-42-(h-85)*.58;ctx.strokeStyle='#59e1e8';ctx.lineWidth=4;ctx.beginPath();for(let i=0;i<=100;i++){let t=T*i/100,x,y;if(kind==='projectile'){x=speed*Math.cos(a)*t; y=speed*Math.sin(a)*t-.5*g*t*t}else{x=speed*t+.5*v[1]*t*t;y=0}let sx=45+x/Math.max(1,maxX)*(w-90),sy=h-42-(kind==='projectile'?y/Math.max(1,maxY)*(h-95):0);i?ctx.lineTo(sx,sy):ctx.moveTo(sx,sy)}ctx.stroke();circle(px,py,8,'#b8f28b');ctx.fillStyle='#edf4ff';ctx.fillText('Lintasan / posisi model',22,h-14)
-}else if(kind==='pendulum'){let ang=(v[2]||15)*Math.PI/180*Math.sin(animFrame/10),len=100+v[0]*35,cx=w/2,cy=70;line(cx,cy,cx+len*Math.sin(ang),cy+len*Math.cos(ang),'#59e1e8',4);circle(cx,cy,7,'#ff9bc2');circle(cx+len*Math.sin(ang),cy+len*Math.cos(ang),13,'#b8f28b');line(cx-65,cy,cx+65,cy,'#526987',2)
-}else if(kind==='wave'||kind==='ripple'){let amp=active.id==='ripple'?45:35, freq=v[0]||2;ctx.strokeStyle='#59e1e8';ctx.lineWidth=3;for(let j=0;j<(kind==='ripple'?4:1);j++){ctx.beginPath();for(let x=0;x<w;x+=3){let y=h/2+Math.sin(x/35*freq/2-animFrame/7+j*1.1)*amp; j?ctx.lineTo(x,y):ctx.lineTo(x,y)}ctx.stroke()}if(kind==='ripple'){ctx.strokeStyle='#79a9ff';for(let r=20;r<190;r+=30){ctx.beginPath();ctx.arc(w/2,h/2,r+Math.sin(animFrame/10)*4,0,Math.PI*2);ctx.stroke()}}
-}else if(kind==='hydro'){ctx.fillStyle='#0c3c64';ctx.fillRect(w*.22,h*.23,w*.56,h*.62);ctx.fillStyle='#59e1e8';ctx.fillRect(w*.22,h*.23,w*.56,5);for(let i=1;i<=5;i++){let yy=h*.23+i*h*.1;line(w*.22,yy,w*.78,yy,'#1f7597',1);ctx.fillStyle='#b8f28b';ctx.fillRect(w*.45,yy-3,Math.min(90,i*14),6)}ctx.fillStyle='#edf4ff';ctx.fillText('Tekanan meningkat dengan kedalaman',w*.12,h-20)
-}else if(kind==='circuit'){let x=w/2,y=h/2;line(100,y,w-100,y,'#59e1e8',4);line(100,y,100,y-80,'#59e1e8',4);line(100,y-80,w-100,y-80,'#59e1e8',4);line(w-100,y-80,w-100,y,'#59e1e8',4);ctx.fillStyle='#ff9bc2';ctx.fillRect(w/2-28,y-100,56,40);ctx.fillStyle='#07101f';ctx.fillText('R',w/2-6,y-75);ctx.fillStyle='#edf4ff';ctx.fillText('V',78,y-30);circle(w/2,y,6,'#b8f28b')
-}else if(kind==='energy'){let base=h-55;line(40,base,w-30,base,'#7186a6',2);ctx.fillStyle='#79a9ff';ctx.fillRect(w*.2,base-120,70,120);ctx.fillStyle='#b8f28b';ctx.fillRect(w*.55,base-75,70,75);ctx.fillStyle='#edf4ff';ctx.fillText('Energi potensial',w*.12,base+25);ctx.fillText('Energi kinetik',w*.52,base+25)
-}else if(kind==='atwood'){let cx=w/2,cy=80;circle(cx,cy,35,'#79a9ff');line(cx-35,cy,cx-35,h-80,'#59e1e8',3);line(cx+35,cy,cx+35,h-80,'#59e1e8',3);ctx.fillStyle='#b8f28b';ctx.fillRect(cx-58,h-120,46,40);ctx.fillStyle='#ff9bc2';ctx.fillRect(cx+12,h-160,46,40);ctx.fillStyle='#edf4ff';ctx.fillText('m₁',cx-54,h-94);ctx.fillText('m₂',cx+17,h-134)
-}else if(kind==='rotation'){let cx=w/2,cy=h/2;circle(cx,cy,Math.min(105,35+v[1]*70),'#173b55');circle(cx,cy,8,'#ff9bc2');ctx.strokeStyle='#59e1e8';ctx.lineWidth=5;ctx.beginPath();ctx.arc(cx,cy,Math.min(105,35+v[1]*70),animFrame/12,animFrame/12+Math.PI*1.45);ctx.stroke()
-}else if(kind==='expansion'){line(80,h/2,w-80,h/2,'#7186a6',10);ctx.fillStyle='#59e1e8';ctx.fillRect(80,h/2-10,w*.64,20);ctx.fillStyle='#b8f28b';ctx.fillRect(80,h/2+35,Math.min(w*.78,w*.64+v[2]*.5),9);ctx.fillStyle='#edf4ff';ctx.fillText('Panjang awal',80,h/2-25);ctx.fillText('Setelah dipanaskan',80,h/2+70)
-}else if(kind==='arch'){ctx.fillStyle='#0c3c64';ctx.fillRect(w*.18,h*.3,w*.64,h*.5);ctx.fillStyle='#59e1e8';ctx.fillRect(w*.18,h*.3,w*.64,5);ctx.fillStyle='#b8f28b';ctx.fillRect(w*.4,h*.4,90,65);line(w*.45,h*.4,w*.45,h*.2,'#b8f28b',3);ctx.fillStyle='#edf4ff';ctx.fillText('Gaya apung ↑',w*.56,h*.23)
-}else if(kind==='measure'){line(60,h*.55,w-50,h*.55,'#59e1e8',5);for(let i=0;i<=20;i++){let x=60+i*(w-110)/20;line(x,h*.55,x,h*.55-(i%5===0?30:14),'#b8cbe5',2)}ctx.fillStyle='#edf4ff';ctx.fillText('Skala pengukuran model',60,h*.55+35)
-}else if(kind==='force'){line(100,h*.65,w-100,h*.65,'#7186a6',3);ctx.fillStyle='#79a9ff';ctx.fillRect(w*.4,h*.65-60,90,60);line(w*.4,h*.65-30,w*.2,h*.65-30,'#59e1e8',5);ctx.fillStyle='#edf4ff';ctx.fillText('Gaya dorong →',w*.15,h*.65-50);line(w*.4,h*.65+15,w*.25,h*.65+15,'#ff9bc2',4);ctx.fillText('Gaya gesek ←',w*.18,h*.65+48)
-}else if(kind==='collision'){let x1=w*.25+Math.sin(animFrame/10)*25,x2=w*.68-Math.sin(animFrame/10)*20;circle(x1,h/2,24,'#59e1e8');circle(x2,h/2,30,'#ff9bc2');line(60,h/2,w-60,h/2,'#39516f',2);ctx.fillStyle='#edf4ff';ctx.fillText('Momentum sebelum dan sesudah tumbukan',80,h*.78)
-}else if(kind==='optics'){line(70,h*.25,70,h*.78,'#59e1e8',4);line(w*.53,h*.18,w*.53,h*.82,'#79a9ff',4);line(70,h*.5,w*.53,h*.5,'#7186a6',1);line(w*.53,h*.5,w-65,h*.31,'#b8f28b',2);line(w*.53,h*.5,w-65,h*.7,'#b8f28b',2);ctx.fillStyle='#edf4ff';ctx.fillText('Benda',45,h*.2);ctx.fillText('Lensa',w*.49,h*.14);ctx.fillText('Bayangan (model)',w*.66,h*.2)
-}else if(kind==='induction'){let cx=w/2,cy=h/2;for(let r=30;r<130;r+=18){ctx.strokeStyle='#395d89';ctx.lineWidth=3;ctx.beginPath();ctx.ellipse(cx,cy,r,r*.45,0,0,Math.PI*2);ctx.stroke()}ctx.fillStyle='#ff9bc2';ctx.fillRect(cx-12,cy-75,24,150);ctx.fillStyle='#edf4ff';ctx.fillText('Fluks magnet berubah',cx-90,h-25)
-}else{ctx.fillStyle='#59e1e8';ctx.fillText('Model visual konseptual',w/2-100,h/2)}
-if(animating){animFrame++;requestAnimationFrame(draw)}
+let active = modules[0], currentGroup = 'all', animating = false, animFrame = 0, records = [];
+function getEl(id) { return document.getElementById(id); }
+const canvas = getEl('simCanvas'), ctx = canvas.getContext('2d');
+function fmt(x){ return Number(x).toLocaleString('id-ID',{maximumFractionDigits:3}); }
+function getVals(){ return active.vars.map((_,i)=>Number(getEl('v'+i).value)); }
+function renderModules(){
+  const list = getEl('moduleList');
+  list.innerHTML = '';
+  modules.forEach((m)=>{
+    let b = document.createElement('button');
+    b.className = 'module-btn' + (m.id === active.id ? ' active' : '');
+    b.innerHTML = <span class="num">01</span><span><strong>${m.name}</strong><small>${m.g}</small></span>;
+    b.onclick = () => selectModule(m);
+    list.appendChild(b);
+  });
 }
-function saveRecord(){let v=getVals(),m=active.metrics(v);records.unshift({name:active.name,values:active.vars.map((a,i)=>fmt(v[i])+' '+a[5]).join(' / '),result:m.map(x=>x[0]+': '+x[1]).join('; ')});records=records.slice(0,12);renderRecords()}
-function renderRecords(){$('tableHead').innerHTML='<tr><th>Modul</th><th>Variabel</th><th>Hasil perhitungan</th></tr>';$('tableBody').innerHTML=records.map(r=>`<tr><td>${r.name}</td><td>${r.values}</td><td>${r.result}</td></tr>`).join('')}
-$('search').addEventListener('input',renderModules);document.querySelectorAll('[data-group]').forEach(b=>b.onclick=()=>{currentGroup=b.dataset.group;document.querySelectorAll('[data-group]').forEach(x=>{x.classList.toggle('active',x===b);x.classList.toggle('secondary',x!==b)});renderModules()});
-$('runBtn').onclick=()=>{animating=true;draw()};$('resetBtn').onclick=()=>{animating=false;selectModule(active)};$('recordBtn').onclick=saveRecord;
-$('moduleCount').textContent=modules.length;renderModules();selectModule(active);renderRecords();
-</script></body></html>
+function selectModule(m){
+  animating = false; animFrame = 0; getEl('runBtn').textContent = '▶️ Jalankan'; active = m;
+  renderModules();
+  getEl('moduleTitle').textContent = m.name; getEl('moduleDesc').textContent = m.desc;
+  getEl('formulaText').innerHTML = '<code>'+m.formula+'</code>'; getEl('conceptText').textContent = m.concept;
+  getEl('controls').innerHTML = '';
+  m.vars.forEach((v,i)=>{
+    let d = document.createElement('div'); d.className = 'control';
+    d.innerHTML = <div class="control-head"><label>${v[0]}</label><output id="o${i}">${v[1]} ${v[5]}</output></div><input id="v${i}" type="range" min="${v[2]}" max="${v[3]}" step="${v[4]}" value="${v[1]}">;
+    d.querySelector('input').oninput = () => { getEl('o'+i).textContent = getEl('v'+i).value+' '+v[5]; update(); };
+    getEl('controls').appendChild(d);
+  });
+  update(); draw();
+}
+function update(){
+  let vals = getVals(), met = active.metrics(vals);
+  getEl('results').innerHTML = met.map(x=><div class="result"><small>${x[0]}</small><b>${x[1]}</b></div>).join('');
+  draw();
+}
+function draw(){
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0,0,w,h); ctx.fillStyle = '#07101f'; ctx.fillRect(0,0,w,h);
+  let v = getVals();
+  if(active.kind === 'projectile'){
+    let a = v[1]*Math.PI/180, speed = v[0], g = v[2];
+    let T = 2*speed*Math.sin(a)/g, maxX = speed*Math.cos(a)T, maxY = (speed2)(Math.sin(a)**2)/(2*g);
+    ctx.strokeStyle = '#59e1e8'; ctx.lineWidth = 3; ctx.beginPath();
+    for(let i=0; i<=50; i++){
+      let t = T*i/50, x = speed*Math.cos(a)*t, y = speed*Math.sin(a)*t - 0.5*g*t*t;
+      let sx = 45 + x/Math.max(1,maxX)(w-90), sy = h - 42 - y/Math.max(1,maxY)(h-80);
+      i ? ctx.lineTo(sx,sy) : ctx.moveTo(sx,sy);
+    }
+    ctx.stroke();
+    let currT = (animFrame*0.03)%T;
+    let px = 45 + (speed*Math.cos(a)currT)/Math.max(1,maxX)(w-90);
+    let py = h - 42 - ((speed*Math.sin(a)currT - 0.5*g*currT*currT)/Math.max(1,maxY)(h-80));
+    ctx.fillStyle = '#b8f28b'; ctx.beginPath(); ctx.arc(px,py,7,0,Math.PI*2); ctx.fill();
+  } else if(active.kind === 'atwood'){
+    let sys_a = (v[1]-v[0])*v[2]/(v[0]+v[1]);
+    let shift = Math.sin(animFrame/10)20(sys_a !== 0 ? Math.sign(sys_a) : 1);
+    ctx.strokeStyle = '#79a9ff'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(w/2,80,30,0,Math.PI*2); ctx.stroke();
+    ctx.fillStyle = '#b8f28b'; ctx.fillRect(w/2-55,80+shift,40,40);
+    ctx.fillStyle = '#ff9bc2'; ctx.fillRect(w/2+15,80-shift,40,40);
+  }
+  if(animating){ animFrame++; requestAnimationFrame(draw); }
+}
+getEl('runBtn').onclick = () => { animating = true; draw(); getEl('runBtn').textContent = '⏸️ Berjalan'; };
+getEl('resetBtn').onclick = () => { animating = false; animFrame = 0; getEl('runBtn').textContent = '▶️ Jalankan'; selectModule(active); };
+renderModules(); selectModule(active);
+</script>
+</body>
+</html>
